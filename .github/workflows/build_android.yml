@@ -1,4 +1,4 @@
-name: Android (arm64-v8a, API level 33)
+name: Android (arm64-v8a, x86_64, API level 33)
 
 on:
   push:
