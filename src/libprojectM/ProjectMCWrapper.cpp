@@ -69,7 +69,7 @@ projectm_handle projectm_create()
     {
         auto projectMInstance = new libprojectM::projectMWrapper();
         std::cout << "PRJMLOG projectm_create\n";
-        __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "testlog projectm_create")
+        __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "testlog projectm_create");
         return reinterpret_cast<projectm_handle>(projectMInstance);
     }
     catch (...)
