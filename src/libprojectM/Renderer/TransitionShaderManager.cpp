@@ -3,6 +3,7 @@
 #include "BuiltInTransitionsResources.hpp"
 
 #include <iostream>
+#include <android/log.h>
 
 namespace libprojectM {
 namespace Renderer {
@@ -54,6 +55,7 @@ auto TransitionShaderManager::CompileTransitionShader(const std::string& shaderB
     {
         // ToDo: Log proper shader compile error once logging API is in place
         std::cout << "PRJMLOG ShaderException " << e.what() << "\n";
+        __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "shader exception: %s", e.what());
         return {};
     }
 }
