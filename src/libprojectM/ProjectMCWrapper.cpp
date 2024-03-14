@@ -66,6 +66,7 @@ projectm_handle projectm_create()
     try
     {
         auto projectMInstance = new libprojectM::projectMWrapper();
+        std::cout << "PRJMLOG projectm_create\n";
         return reinterpret_cast<projectm_handle>(projectMInstance);
     }
     catch (...)

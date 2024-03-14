@@ -50,9 +50,10 @@ auto TransitionShaderManager::CompileTransitionShader(const std::string& shaderB
         transitionShader->CompileProgram(static_cast<const char*>(versionHeader) + kTransitionVertexShaderGlsl330, fragmentShaderSource);
         return transitionShader;
     }
-    catch (const ShaderException&)
+    catch (const ShaderException &e)
     {
         // ToDo: Log proper shader compile error once logging API is in place
+        std::cout << "PRJMLOG ShaderException " << e.what() << "\n";
         return {};
     }
 }
