@@ -10,14 +10,6 @@ add_subdirectory(Audio)
 add_subdirectory(MilkdropPreset)
 add_subdirectory(Renderer)
 
-find_library( # Defines the name of the path variable that stores the
-              # location of the NDK library.
-              log-lib
-
-              # Specifies the name of the NDK library that
-              # CMake needs to locate.
-              log )
-
 add_library(projectM_main OBJECT
         "${PROJECTM_EXPORT_HEADER}"
         Preset.hpp
@@ -43,7 +35,6 @@ target_link_libraries(projectM_main
         SOIL2
         libprojectM::API
         ${PROJECTM_FILESYSTEM_LIBRARY}
-        ${log-lib}
         )
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
@@ -103,6 +94,14 @@ set_target_properties(projectM PROPERTIES
         )
 
 if(BUILD_SHARED_LIBS)
+find_library( # Defines the name of the path variable that stores the
+              # location of the NDK library.
+              log-lib
+
+              # Specifies the name of the NDK library that
+              # CMake needs to locate.
+              log )
+
     target_compile_definitions(projectM_main
             PRIVATE
             projectM_api_EXPORTS
@@ -111,6 +110,7 @@ if(BUILD_SHARED_LIBS)
     target_link_libraries(projectM
             PUBLIC
             ${CMAKE_DL_LIBS}
+            ${log-lib}
             )
 else()
     target_compile_definitions(projectM_main
