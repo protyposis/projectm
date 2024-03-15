@@ -4,6 +4,7 @@
 
 #include <sstream>
 #include <string>
+#include <android/log.h>
 
 namespace libprojectM {
 namespace MilkdropPreset {
@@ -196,6 +197,7 @@ std::unique_ptr<Preset>
 IdlePresets::allocate()
 {
     std::istringstream in(presetText());
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "IdlePresets::allocate");
     return std::unique_ptr<Preset>(new MilkdropPreset(in));
 }
 

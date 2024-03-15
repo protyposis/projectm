@@ -42,6 +42,7 @@ MilkdropPreset::MilkdropPreset(const std::string& absoluteFilePath)
     , m_darkenCenter(m_state)
     , m_border(m_state)
 {
+     __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::ctr 1");
     Load(absoluteFilePath);
 }
 
@@ -53,6 +54,7 @@ MilkdropPreset::MilkdropPreset(std::istream& presetData)
     , m_darkenCenter(m_state)
     , m_border(m_state)
 {
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::ctr 2");
     Load(presetData);
 }
 
