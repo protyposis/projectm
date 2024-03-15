@@ -231,6 +231,8 @@ void MilkdropPreset::Load(std::istream& stream)
     std::cerr << "[Preset] Loading preset from stream." << std::endl;
 #endif
 
+__android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::LoadS 1");
+
     PresetFileParser parser;
 
     if (!parser.Read(stream))
@@ -238,6 +240,7 @@ void MilkdropPreset::Load(std::istream& stream)
 #ifdef MILKDROP_PRESET_DEBUG
         std::cerr << "[Preset] Could not parse preset data." << std::endl;
 #endif
+__android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::LoadS parse error");
         throw MilkdropPresetLoadException("Could not parse preset data.");
     }
 
