@@ -31,6 +31,7 @@
 #include <Renderer/PresetTransition.hpp>
 #include <Renderer/TextureManager.hpp>
 #include <Renderer/TransitionShaderManager.hpp>
+#include <android/log.h>
 
 namespace libprojectM {
 
@@ -62,6 +63,7 @@ void ProjectM::LoadPresetFile(const std::string& presetFilename, bool smoothTran
     }
     catch (const std::exception& ex)
     {
+        __android_log_print(ANDROID_LOG_ERROR, "PRJMNATIVE", "loadpresetfile %s", ex.what());
         PresetSwitchFailedEvent(presetFilename, ex.what());
     }
 }
@@ -75,6 +77,7 @@ void ProjectM::LoadPresetData(std::istream& presetData, bool smoothTransition)
     }
     catch (const std::exception& ex)
     {
+        __android_log_print(ANDROID_LOG_ERROR, "PRJMNATIVE", "loadpresetdata %s", ex.what());
         PresetSwitchFailedEvent("", ex.what());
     }
 }
@@ -448,6 +451,9 @@ auto ProjectM::GetRenderContext() -> Renderer::RenderContext
     ctx.perPixelMeshX = static_cast<int>(m_meshX);
     ctx.perPixelMeshY = static_cast<int>(m_meshY);
     ctx.textureManager = m_textureManager.get();
+
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "GetRenderContext %d %d %d %d %f %f %d %d", m_windowWidth, m_windowHeight, m_targetFps, m_frameCount, aspectX, aspectY, perPixelMeshX, perPixelMeshY);
+    assert(ctx.textureManager);
 
     return ctx;
 }
