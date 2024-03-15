@@ -216,7 +216,7 @@ void MilkdropPreset::Load(const std::string& pathname)
 #ifdef MILKDROP_PRESET_DEBUG
         std::cerr << "[Preset] Could not parse preset file." << std::endl;
 #endif
-        __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::Load parse error %s", pathname);
+        __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::Load parse error %s", pathname.c_str());
         throw MilkdropPresetLoadException("Could not parse preset file \"" + pathname + "\"");
     }
 
