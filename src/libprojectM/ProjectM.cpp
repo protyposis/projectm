@@ -60,9 +60,9 @@ void ProjectM::LoadPresetFile(const std::string& presetFilename, bool smoothTran
     {
         m_textureManager->PurgeTextures();
         __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "LoadPresetFile textures purged");
-        std::unique_ptr<Preset>&& preset = m_presetFactoryManager->CreatePresetFromFile(presetFilename);
+        auto preset = m_presetFactoryManager->CreatePresetFromFile(presetFilename);
         __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "LoadPresetFile preset created");
-        StartPresetTransition(preset, !smoothTransition);
+        StartPresetTransition(std::move(preset), !smoothTransition);
     }
     catch (const std::exception& ex)
     {
