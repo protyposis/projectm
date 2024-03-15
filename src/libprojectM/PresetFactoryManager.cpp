@@ -66,7 +66,10 @@ std::unique_ptr<Preset> PresetFactoryManager::CreatePresetFromFile(const std::st
         const std::string extension = "." + ParseExtension(filename);
         __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "PresetFactoryManagerCreatePresetFromFile %s", extension.c_str());
 
-        return factory(extension).LoadPresetFromFile(filename);
+        auto f = factory(extension);
+        assert(f);
+
+        return f.LoadPresetFromFile(filename);
     }
     catch (const PresetFactoryException& e)
     {
@@ -112,7 +115,9 @@ PresetFactory& PresetFactoryManager::factory(const std::string& extension)
     {
         std::ostringstream os;
         os << "No preset factory associated with \"" << extension << "\"." << std::endl;
-        throw PresetFactoryException(os.str());
+        auto x = os.str();
+        __android_log_print(ANDROID_LOG_ERROR, "PRJMNATIVE", "PresetFactoryManager::factory %s %s", extension.c_str(), x.c_str());
+        throw PresetFactoryException(x);
     }
     return *m_factoryMap[extension];
 }
