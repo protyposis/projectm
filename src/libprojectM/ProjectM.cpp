@@ -452,7 +452,7 @@ auto ProjectM::GetRenderContext() -> Renderer::RenderContext
     ctx.perPixelMeshY = static_cast<int>(m_meshY);
     ctx.textureManager = m_textureManager.get();
 
-    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "GetRenderContext %d %d %d %d %f %f %d %d", m_windowWidth, m_windowHeight, m_targetFps, m_frameCount, aspectX, aspectY, perPixelMeshX, perPixelMeshY);
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "GetRenderContext %d %d %d %d %f %f %d %d", m_windowWidth, m_windowHeight, m_targetFps, m_frameCount, ctx.aspectX, ctx.aspectY, ctx.perPixelMeshX, ctx.perPixelMeshY);
     assert(ctx.textureManager);
 
     return ctx;
