@@ -24,6 +24,7 @@
 #include "Factory.hpp"
 #include "MilkdropPresetExceptions.hpp"
 #include "PresetFileParser.hpp"
+#include <android/log.h>
 
 #ifdef MILKDROP_PRESET_DEBUG
 #include <iostream>
@@ -203,7 +204,10 @@ void MilkdropPreset::Load(const std::string& pathname)
     std::cerr << "[Preset] Loading preset from file \"" << pathname << "\"." << std::endl;
 #endif
 
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::Load 1");
+
     SetFilename(ParseFilename(pathname));
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::Load 2");
 
     PresetFileParser parser;
 
@@ -212,6 +216,7 @@ void MilkdropPreset::Load(const std::string& pathname)
 #ifdef MILKDROP_PRESET_DEBUG
         std::cerr << "[Preset] Could not parse preset file." << std::endl;
 #endif
+        __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::Load parse error %s", pathname);
         throw MilkdropPresetLoadException("Could not parse preset file \"" + pathname + "\"");
     }
 
@@ -239,10 +244,12 @@ void MilkdropPreset::Load(std::istream& stream)
 
 void MilkdropPreset::InitializePreset(PresetFileParser& parsedFile)
 {
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::InitializePreset 1");
     // Create the offscreen rendering surfaces.
     m_motionVectorUVMap = std::make_shared<Renderer::TextureAttachment>(GL_RG16F, GL_RG, GL_FLOAT, 0, 0);
     m_framebuffer.CreateColorAttachment(0, 0); // Main image 1
     m_framebuffer.CreateColorAttachment(1, 0); // Main image 2
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::InitializePreset 2");
 
     Renderer::Framebuffer::Unbind();
 
@@ -253,6 +260,8 @@ void MilkdropPreset::InitializePreset(PresetFileParser& parsedFile)
     m_perFrameContext.RegisterBuiltinVariables();
     m_perPixelContext.RegisterBuiltinVariables();
 
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::InitializePreset 3");
+
     // Custom waveforms:
     for (int i = 0; i < CustomWaveformCount; i++)
     {
@@ -260,6 +269,8 @@ void MilkdropPreset::InitializePreset(PresetFileParser& parsedFile)
         wave->Initialize(parsedFile, i);
         m_customWaveforms[i] = std::move(wave);
     }
+
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::InitializePreset 4");
 
     // Custom shapes:
     for (int i = 0; i < CustomShapeCount; i++)
@@ -269,8 +280,12 @@ void MilkdropPreset::InitializePreset(PresetFileParser& parsedFile)
         m_customShapes[i] = std::move(shape);
     }
 
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::InitializePreset 5");
+
     // Preload shaders
     LoadShaderCode();
+
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::InitializePreset 6");
 }
 
 void MilkdropPreset::CompileCodeAndRunInitExpressions()

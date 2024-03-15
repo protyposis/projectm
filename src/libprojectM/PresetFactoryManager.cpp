@@ -6,6 +6,7 @@
 #include <cassert>
 #include <iostream>
 #include <sstream>
+#include <android/log.h>
 
 namespace libprojectM {
 
@@ -63,19 +64,23 @@ std::unique_ptr<Preset> PresetFactoryManager::CreatePresetFromFile(const std::st
     try
     {
         const std::string extension = "." + ParseExtension(filename);
+        __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "PresetFactoryManagerCreatePresetFromFile %s", extension);
 
         return factory(extension).LoadPresetFromFile(filename);
     }
-    catch (const PresetFactoryException&)
+    catch (const PresetFactoryException& e)
     {
+        __android_log_print(ANDROID_LOG_ERROR, "PRJMNATIVE", "PresetFactoryManagerCreatePresetFromFile PresetFactoryException %s", e.what());
         throw;
     }
     catch (const std::exception& e)
     {
+        __android_log_print(ANDROID_LOG_ERROR, "PRJMNATIVE", "PresetFactoryManagerCreatePresetFromFile exception %s", e.what());
         throw PresetFactoryException(e.what());
     }
     catch (...)
     {
+        __android_log_print(ANDROID_LOG_ERROR, "PRJMNATIVE", "PresetFactoryManagerCreatePresetFromFile uncaught ex");
         throw PresetFactoryException("Uncaught preset factory exception");
     }
 }
