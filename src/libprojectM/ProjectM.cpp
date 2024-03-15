@@ -189,17 +189,22 @@ void ProjectM::Initialize()
                                                 m_softCutDuration,
                                                 m_hardCutDuration,
                                                 m_easterEgg);
+    assert(m_timeKeeper);
 
     /** Nullify frame stash */
 
     /** Initialise per-pixel matrix calculations */
     /** We need to initialise this before the builtin param db otherwise bass/mid etc won't bind correctly */
     m_textureManager = std::make_unique<Renderer::TextureManager>(m_textureSearchPaths);
+    assert(m_textureManager);
 
     m_transitionShaderManager = std::make_unique<Renderer::TransitionShaderManager>();
+    assert(m_transitionShaderManager);
 
     m_textureCopier = std::make_unique<Renderer::CopyTexture>();
+    assert(m_textureCopier);
 
+    assert(m_presetFactoryManager);
     m_presetFactoryManager->initialize();
 
     /* Set the seed to the current time in seconds */
