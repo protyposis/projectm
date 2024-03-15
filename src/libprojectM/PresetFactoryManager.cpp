@@ -66,10 +66,7 @@ std::unique_ptr<Preset> PresetFactoryManager::CreatePresetFromFile(const std::st
         const std::string extension = "." + ParseExtension(filename);
         __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "PresetFactoryManagerCreatePresetFromFile %s", extension.c_str());
 
-        auto f = factory(extension);
-        assert(f);
-
-        return f.LoadPresetFromFile(filename);
+        return factory(extension).LoadPresetFromFile(filename);
     }
     catch (const PresetFactoryException& e)
     {
