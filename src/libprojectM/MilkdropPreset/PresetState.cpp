@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <random>
+#include <android/log.h>
 
 namespace libprojectM {
 namespace MilkdropPreset {
@@ -16,11 +17,15 @@ const glm::mat4 PresetState::orthogonalProjectionFlipped = glm::ortho(-1.0f, 1.0
 PresetState::PresetState()
     : globalMemory(projectm_eval_memory_buffer_create())
 {
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "PresetState::PresetState 1");
     auto staticShaders = libprojectM::MilkdropPreset::MilkdropStaticShaders::Get();
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "PresetState::PresetState 2");
     untexturedShader.CompileProgram(staticShaders->GetUntexturedDrawVertexShader(),
                                     staticShaders->GetUntexturedDrawFragmentShader());
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "PresetState::PresetState 3");
     texturedShader.CompileProgram(staticShaders->GetTexturedDrawVertexShader(),
                                   staticShaders->GetTexturedDrawFragmentShader());
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "PresetState::PresetState 4");
 
     std::random_device randomDevice;
     std::mt19937 randomGenerator(randomDevice());
@@ -30,6 +35,7 @@ PresetState::PresetState()
     hueRandomOffsets[1] = static_cast<float>(distrib(randomGenerator) % 53751L) * 0.01f;
     hueRandomOffsets[2] = static_cast<float>(distrib(randomGenerator) % 42661L) * 0.01f;
     hueRandomOffsets[3] = static_cast<float>(distrib(randomGenerator) % 31571L) * 0.01f;
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "PresetState::PresetState 5");
 }
 
 PresetState::~PresetState()
