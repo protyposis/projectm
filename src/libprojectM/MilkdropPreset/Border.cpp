@@ -1,4 +1,5 @@
 #include "Border.hpp"
+#include <android/log.h>
 
 namespace libprojectM {
 namespace MilkdropPreset {
@@ -7,7 +8,9 @@ Border::Border(PresetState& presetState)
     : RenderItem()
     , m_presetState(presetState)
 {
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "Border::Border 1");
     RenderItem::Init();
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "Border::Border 2");
 }
 
 void Border::InitVertexAttrib()

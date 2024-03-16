@@ -1,4 +1,5 @@
 #include "DarkenCenter.hpp"
+#include <android/log.h>
 
 namespace libprojectM {
 namespace MilkdropPreset {
@@ -7,7 +8,9 @@ DarkenCenter::DarkenCenter(PresetState& presetState)
     : RenderItem()
     , m_presetState(presetState)
 {
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "DarkenCenter::DarkenCenter 1");
     RenderItem::Init();
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "DarkenCenter::DarkenCenter 2");
 }
 
 void DarkenCenter::InitVertexAttrib()

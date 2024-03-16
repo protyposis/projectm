@@ -3,6 +3,7 @@
 #include "MilkdropStaticShaders.hpp"
 
 #include <Renderer/TextureManager.hpp>
+#include <android/log.h>
 
 namespace libprojectM {
 namespace MilkdropPreset {
@@ -11,10 +12,14 @@ MotionVectors::MotionVectors(PresetState& presetState)
     : RenderItem()
     , m_presetState(presetState)
 {
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MotionVectors::MotionVectors 1");
     auto staticShaders = libprojectM::MilkdropPreset::MilkdropStaticShaders::Get();
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MotionVectors::MotionVectors 2");
     m_motionVectorShader.CompileProgram(staticShaders->GetPresetMotionVectorsVertexShader(),
                                         staticShaders->GetUntexturedDrawFragmentShader());
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MotionVectors::MotionVectors 3");
     RenderItem::Init();
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MotionVectors::MotionVectors 4");
 }
 
 void MotionVectors::InitVertexAttrib()

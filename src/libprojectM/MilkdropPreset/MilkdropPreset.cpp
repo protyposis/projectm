@@ -47,7 +47,7 @@ MilkdropPreset::MilkdropPreset(const std::string& absoluteFilePath)
 }
 
 MilkdropPreset::MilkdropPreset(std::istream& presetData)
-    : m_perFrameContext(m_state.globalMemory, &m_state.globalRegisters)
+    try : m_perFrameContext(m_state.globalMemory, &m_state.globalRegisters)
     , m_perPixelContext(m_state.globalMemory, &m_state.globalRegisters)
     , m_motionVectors(m_state)
     , m_waveform(m_state)
@@ -56,6 +56,10 @@ MilkdropPreset::MilkdropPreset(std::istream& presetData)
 {
     __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "MilkdropPreset::ctr 2");
     Load(presetData);
+}
+catch (const std::exception& e) {
+    __android_log_print(ANDROID_LOG_ERROR, "PRJMNATIVE", "MilkdropPreset::ctr 2 catch %s", e.what());
+    throw e;
 }
 
 void MilkdropPreset::Initialize(const Renderer::RenderContext& renderContext)

@@ -5,6 +5,7 @@
 #ifdef MILKDROP_PRESET_DEBUG
 #include <iostream>
 #endif
+#include <android/log.h>
 
 #define REG_VAR(var) \
     var = projectm_eval_context_register_variable(perPixelCodeContext, #var);
@@ -15,6 +16,7 @@ namespace MilkdropPreset {
 PerPixelContext::PerPixelContext(projectm_eval_mem_buffer gmegabuf, PRJM_EVAL_F (*globalRegisters)[100])
     : perPixelCodeContext(projectm_eval_context_create(gmegabuf, globalRegisters))
 {
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "PerPixelContext::PerPixelContext 1");
 }
 
 PerPixelContext::~PerPixelContext()

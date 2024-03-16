@@ -11,6 +11,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <android/log.h>
 
 using libprojectM::Renderer::RenderItem;
 
@@ -21,7 +22,9 @@ Waveform::Waveform(PresetState& presetState)
     : RenderItem()
     , m_presetState(presetState)
 {
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "Waveform::Waveform 1");
     RenderItem::Init();
+    __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "Waveform::Waveform 2");
 }
 
 void Waveform::InitVertexAttrib()
