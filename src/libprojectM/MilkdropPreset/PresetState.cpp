@@ -8,14 +8,21 @@
 #include <random>
 #include <android/log.h>
 
+projectm_eval_mem_buffer prjm_eval_memory_create_buffer_local()
+{
+    return calloc(128, sizeof(PRJM_EVAL_F*));
+}
+
 namespace libprojectM {
 namespace MilkdropPreset {
 
 const glm::mat4 PresetState::orthogonalProjection = glm::ortho(-1.0f, 1.0f, 1.0f, -1.0f, -40.0f, 40.0f);
 const glm::mat4 PresetState::orthogonalProjectionFlipped = glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -40.0f, 40.0f);
 
+
+
 PresetState::PresetState()
-    : globalMemory(calloc(128, sizeof(double*)))
+    : globalMemory(prjm_eval_memory_create_buffer_local())
 {
     __android_log_print(ANDROID_LOG_DEBUG, "PRJMNATIVE", "PresetState::PresetState 1");
     auto staticShaders = libprojectM::MilkdropPreset::MilkdropStaticShaders::Get();
