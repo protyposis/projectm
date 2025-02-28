@@ -3,7 +3,7 @@
 
 float sinNoise(vec2 uv)
 {
-    return fract(abs(sin(uv.x * 1.0 + uv.y * 1.0) * 1.0));
+    return fract(abs(sin(uv.x * 0.018 + uv.y * 0.3077) * (float(iRandStatic.x) * .001)));
 }
 
 float valueNoise(vec2 uv, float scale)
